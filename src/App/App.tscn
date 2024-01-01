@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dd1hjr7hwgc0o"]
+
+[ext_resource type="Script" path="res://src/App/App.cs" id="1_gqroe"]
+[ext_resource type="PackedScene" uid="uid://mmq1wqngv306" path="res://src/StartMenu/StartMenu.tscn" id="2_o3l27"]
+
+[node name="App" type="CanvasLayer"]
+script = ExtResource("1_gqroe")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameViewport" type="SubViewport" parent="SubViewportContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="StartMenu" parent="." instance=ExtResource("2_o3l27")]
+unique_name_in_owner = true

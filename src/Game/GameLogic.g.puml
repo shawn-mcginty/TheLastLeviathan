@@ -1,0 +1,3 @@
+@startuml GameLogic
+state "GameLogic State" as IState
+@enduml

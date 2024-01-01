@@ -1,0 +1,52 @@
+<Project Sdk="Godot.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<LangVersion>10.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<RootNamespace>TheLastLeviathan</RootNamespace>
+		<!-- Required for some nuget packages to work -->
+		<!-- godotengine/godot/issues/42271#issuecomment-751423827 -->
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<!-- To show generated files -->
+		<!-- <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles> -->
+		<!--
+			<CompilerGeneratedFilesOutputPath>.generated</CompilerGeneratedFilesOutputPath>
+		-->
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<Title>TheLastLeviathan</Title>
+		<Version>1.0.0</Version>
+		<Description>TheLastLeviathan</Description>
+		<Copyright>© 2023 Shawn McGinty</Copyright>
+		<Authors>Shawn McGinty</Authors>
+		<Company>Shawn McGinty</Company>
+		<!-- Don't include unit tests in release builds. -->
+		<DefaultItemExcludes Condition="'$(Configuration)' == 'ExportRelease'">
+			$(DefaultItemExcludes);test/**/*
+		</DefaultItemExcludes>
+	</PropertyGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<!-- Test dependencies go here! -->
+		<!-- Dependencies added here will not be included in release builds. -->
+		<PackageReference Include="Chickensoft.GoDotTest" Version="1.2.3" />
+		<!-- Used to drive test scenes when testing visual code -->
+		<PackageReference Include="GodotTestDriver" Version="2.1.0" />
+		<!-- Bring your own assertion library for tests! -->
+		<!-- We're using Shouldly for this example, but you can use anything. -->
+		<PackageReference Include="Shouldly" Version="4.2.1" />
+		<!-- LightMock is a mocking library that works without reflection. -->
+		<PackageReference Include="LightMock.Generator" Version="1.2.2" />
+		<!-- LightMoq is a Chickensoft package which makes it more like Moq. -->
+		<PackageReference Include="LightMoq" Version="0.1.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<!-- Production dependencies go here! -->
+		<!-- Include SuperNodes as a Source Generator -->
+		<PackageReference Include="Chickensoft.SuperNodes" Version="1.1.0" PrivateAssets="all" OutputItemType="analyzer" />
+
+		<!-- Type definitions and attributes used by SuperNodes. -->
+		<!-- By convention, version will be the same as the generator itself. -->
+		<PackageReference Include="Chickensoft.SuperNodes.Types" Version="1.1.0" />
+	</ItemGroup>
+</Project>

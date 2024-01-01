@@ -1,0 +1,26 @@
+@startuml PlayerLogic
+state "PlayerLogic State" as TheLastLeviathan_Player_PlayerLogic_State {
+  state "Alive" as TheLastLeviathan_Player_PlayerLogic_State_Alive {
+    state "Idle" as TheLastLeviathan_Player_PlayerLogic_State_Idle {
+      TheLastLeviathan_Player_PlayerLogic_State_Idle : OnEnter → Idle
+    }
+    state "Moving" as TheLastLeviathan_Player_PlayerLogic_State_Moving {
+      TheLastLeviathan_Player_PlayerLogic_State_Moving : OnChangeDirection → Idle, Walk
+      TheLastLeviathan_Player_PlayerLogic_State_Moving : OnEnter → Walk
+    }
+    TheLastLeviathan_Player_PlayerLogic_State_Alive : OnPhysicsTick → MovementComputed
+  }
+  state "Disabled" as TheLastLeviathan_Player_PlayerLogic_State_Disabled {
+    TheLastLeviathan_Player_PlayerLogic_State_Disabled : OnEnter → Idle
+  }
+}
+
+TheLastLeviathan_Player_PlayerLogic_State_Alive --> TheLastLeviathan_Player_PlayerLogic_State_Alive : Moved
+TheLastLeviathan_Player_PlayerLogic_State_Alive --> TheLastLeviathan_Player_PlayerLogic_State_Alive : PhysicsTick
+TheLastLeviathan_Player_PlayerLogic_State_Disabled --> TheLastLeviathan_Player_PlayerLogic_State_Idle : Enable
+TheLastLeviathan_Player_PlayerLogic_State_Idle --> TheLastLeviathan_Player_PlayerLogic_State_Moving : StartedMoving
+TheLastLeviathan_Player_PlayerLogic_State_Moving --> TheLastLeviathan_Player_PlayerLogic_State_Idle : StoppedMoving
+TheLastLeviathan_Player_PlayerLogic_State_Moving --> TheLastLeviathan_Player_PlayerLogic_State_Moving : ChangeDirection
+
+[*] --> TheLastLeviathan_Player_PlayerLogic_State_Disabled
+@enduml

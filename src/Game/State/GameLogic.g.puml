@@ -1,0 +1,11 @@
+@startuml GameLogic
+state "GameLogic State" as TheLastLeviathan_Game_GameLogic_State {
+  TheLastLeviathan_Game_GameLogic_State : GameAboutToStart() → FocusPlayer
+  TheLastLeviathan_Game_GameLogic_State : GamePaused() → SetPauseMode
+  TheLastLeviathan_Game_GameLogic_State : GameResumed() → SetPauseMode
+}
+
+TheLastLeviathan_Game_GameLogic_State --> TheLastLeviathan_Game_GameLogic_State : Initialize
+
+[*] --> TheLastLeviathan_Game_GameLogic_State
+@enduml

@@ -1,0 +1,32 @@
+@startuml AppLogic
+state "AppLogic State" as TheLastLeviathan_App_AppLogic_State {
+  state "LeavingMenu" as TheLastLeviathan_App_AppLogic_State_LeavingMenu {
+    TheLastLeviathan_App_AppLogic_State_LeavingMenu : OnEnter → FadeOut
+  }
+  state "StartMenu" as TheLastLeviathan_App_AppLogic_State_StartMenu {
+    TheLastLeviathan_App_AppLogic_State_StartMenu : OnEnter → LoadGame, ShowStartMenu
+  }
+  state "InGame" as TheLastLeviathan_App_AppLogic_State_InGame {
+    state "GamePaused" as TheLastLeviathan_App_AppLogic_State_GamePaused {
+      TheLastLeviathan_App_AppLogic_State_GamePaused : OnEnter → ShowPauseMenu
+      TheLastLeviathan_App_AppLogic_State_GamePaused : OnExit → HidePauseMenu
+    }
+    state "PlayingGame" as TheLastLeviathan_App_AppLogic_State_PlayingGame
+    state "ResumingGame" as TheLastLeviathan_App_AppLogic_State_ResumingGame {
+      TheLastLeviathan_App_AppLogic_State_ResumingGame : OnExit → DisablePauseMenu
+    }
+    TheLastLeviathan_App_AppLogic_State_InGame : OnEnter → ShowGame
+  }
+  TheLastLeviathan_App_AppLogic_State : OnMouseCaptured() → CaptureMouse
+}
+
+TheLastLeviathan_App_AppLogic_State_GamePaused --> TheLastLeviathan_App_AppLogic_State_ResumingGame : PauseButtonPressed
+TheLastLeviathan_App_AppLogic_State_InGame --> TheLastLeviathan_App_AppLogic_State_PlayingGame : GameOver
+TheLastLeviathan_App_AppLogic_State_InGame --> TheLastLeviathan_App_AppLogic_State_PlayingGame : GoToMainMenu
+TheLastLeviathan_App_AppLogic_State_LeavingMenu --> TheLastLeviathan_App_AppLogic_State_PlayingGame : FadeOutFinished
+TheLastLeviathan_App_AppLogic_State_PlayingGame --> TheLastLeviathan_App_AppLogic_State_GamePaused : PauseButtonPressed
+TheLastLeviathan_App_AppLogic_State_ResumingGame --> TheLastLeviathan_App_AppLogic_State_PlayingGame : PauseMenuTransitioned
+TheLastLeviathan_App_AppLogic_State_StartMenu --> TheLastLeviathan_App_AppLogic_State_LeavingMenu : StartGame
+
+[*] --> TheLastLeviathan_App_AppLogic_State_StartMenu
+@enduml
